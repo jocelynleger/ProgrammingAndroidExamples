@@ -155,7 +155,15 @@ public class TouchMe extends Activity {
         dotView.setDots(dotModel);
 
         dotView.setOnCreateContextMenuListener(this);
-        dotView.setOnTouchListener(new TrackingTouchListener(dotModel));
+        dotView.setOnTouchListener(new View.onTouchListener() {
+        	@override public boolean onTouch(View v, MotionEvent event) {
+        		if (MotionEvent.ACTION_DOWN != event.getEvent()) {
+        			return false;
+        		}
+        		dots.addDot(event.getX(), event.getY(), Color.CYAN, DOT_DIAMETER);
+        		return true;
+        	}
+        });
 
         dotView.setOnKeyListener(new OnKeyListener() {
             @Override
